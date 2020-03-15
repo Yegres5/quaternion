@@ -44,8 +44,6 @@ try {
         b3 = fRand(-100, 100);
         b4 = fRand(-100, 100);
 
-//       a1 = -45.2502;a2=   80.554;a3=     71.5006;a4=   -89.0711;
-//       b1=-17.2016;b2=   93.4382;b3=     16.4175;b4=   -71.6118;
         Quaternion comp1{a1,a2,a3,a4};
         Quaternion comp2{b1,b2,b3,b4};
         quaternion<double> a(a1,a2,a3,a4);
