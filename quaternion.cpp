@@ -1,49 +1,59 @@
 #include "quaternion.h"
 
-#include <cmath>
-#include <algorithm>
+#include "complex.h"
 
-Quaternion::Quaternion(std::initializer_list<double> l):real(*l.begin()), imagine(l){
+Quaternion::Quaternion(std::initializer_list<double> l):
+    Complex(*l.begin(), l)
+{
     imagine.erase(0);
 }
 
-Quaternion &Quaternion::cojugate() const
+double Quaternion::getImagine_2() const
 {
-    return *new Quaternion(real, Imagine::reverse(imagine));
+    return imagine.getValue(1);
 }
 
-Quaternion &Quaternion::reverse() const
+double Quaternion::getImagine_3() const
 {
-    return *new Quaternion(this->cojugate()/std::pow(this->abs(),2));
+    return imagine.getValue(2);
 }
 
-double Quaternion::abs() const
+Quaternion &Quaternion::operator+(const Quaternion &quat)
 {
-    return std::sqrt(std::pow(real,2) + Imagine::square(imagine));
+    Complex pComp = Complex::operator+(quat);
+    return *new Quaternion{pComp.real,
+                pComp.imagine.getValue(0),
+                pComp.imagine.getValue(1),
+                pComp.imagine.getValue(2)
+    };
 }
 
-Quaternion &Quaternion::operator/(const Quaternion &comp) const
+Quaternion &Quaternion::operator-(const Quaternion &quat)
 {
-    return *new Quaternion(*this*comp.reverse());
+    Complex pComp = Complex::operator-(quat);
+    return *new Quaternion{pComp.real,
+                pComp.imagine.getValue(0),
+                pComp.imagine.getValue(1),
+                pComp.imagine.getValue(2)
+    };
 }
 
-Quaternion &Quaternion::operator/(const double &comp) const
+Quaternion &Quaternion::operator*(const Quaternion &quat)
 {
-    return *new Quaternion(real/comp, imagine/comp);
+    Complex pComp = Complex::operator*(quat);
+    return *new Quaternion{pComp.real,
+                pComp.imagine.getValue(0),
+                pComp.imagine.getValue(1),
+                pComp.imagine.getValue(2)
+    };
 }
 
-Quaternion &Quaternion::operator*(const Quaternion &comp) const
+Quaternion &Quaternion::operator/(const Quaternion &quat)
 {
-    return *new Quaternion(real*comp.real - Imagine::scalar(imagine, comp.imagine),
-                           Imagine::vector(imagine, comp.imagine)+ comp.imagine*real+imagine*comp.real);
-}
-
-Quaternion &Quaternion::operator+(const Quaternion &comp) const
-{
-    return *new Quaternion(real+comp.real, imagine+comp.imagine);
-}
-
-Quaternion &Quaternion::operator-(const Quaternion &comp) const
-{
-    return *new Quaternion(real-comp.real, imagine-comp.imagine);
+    Complex pComp = Complex::operator/(quat);
+    return *new Quaternion{pComp.real,
+                pComp.imagine.getValue(0),
+                pComp.imagine.getValue(1),
+                pComp.imagine.getValue(2)
+    };
 }

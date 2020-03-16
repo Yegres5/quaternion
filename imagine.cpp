@@ -12,7 +12,8 @@ double scalar(const Imaginary &i1, const Imaginary &i2){
 
 Imaginary &vector(const Imaginary &i1, const Imaginary &i2){
     if (i1.data.size()>1){
-        const std::vector<double> &first = i1.data, second = i2.data;
+        const std::vector<double> &first = i1.data;
+        const std::vector<double> &second = i2.data;
         return *new Imaginary{
                 first[1]*second[2]-second[1]*first[2],
                 first[2]*second[0]-second[2]*first[0],
@@ -28,21 +29,21 @@ double square(const Imaginary &i)
 }
 
 Imaginary &reverse(const Imaginary &i){
-    Imaginary *im = new Imaginary(i);
+    auto im = new Imaginary(i);
     for (auto &it:im->data) it = -it;
     return *im;
 }
 
 Imaginary &Imaginary::operator/(const double &value) const
 {
-    Imaginary *im = new Imaginary(*this);
+    auto im = new Imaginary(*this);
     for (auto &it:im->data) it = it/value;
     return *im;
 }
 
 Imaginary &Imaginary::operator*(const double &value) const
 {
-    Imaginary *im = new Imaginary(*this);
+    auto im = new Imaginary(*this);
     for (auto &it:im->data) it = it*value;
     return *im;
 }
@@ -52,9 +53,14 @@ std::vector<double>::iterator Imaginary::erase(const int &pos)
     return data.erase(data.begin() + pos);
 }
 
+double Imaginary::getValue(const int &pos) const
+{
+    return *(data.begin() + pos);
+}
+
 Imaginary &Imaginary::operator+(const Imaginary &i) const
 {
-    Imaginary *im = new Imaginary(*this);
+    auto im = new Imaginary(*this);
     im->data.resize(i.data.size());
     std::transform(data.begin(), data.end(), i.data.begin(), im->data.begin(), std::plus<double>());
     return *im;
@@ -62,7 +68,7 @@ Imaginary &Imaginary::operator+(const Imaginary &i) const
 
 Imaginary &Imaginary::operator-(const Imaginary &i) const
 {
-    Imaginary *im = new Imaginary(*this);
+    auto im = new Imaginary(*this);
     im->data.resize(i.data.size());
     std::transform(data.begin(), data.end(), i.data.begin(), im->data.begin(), std::minus<double>());
     return *im;

@@ -24,7 +24,9 @@ public:
 
     std::vector<double>::iterator erase (const int& pos);
 
-//private:
+    double getValue(const int &pos) const;
+
+private:
     std::vector<double> data;
 };
 

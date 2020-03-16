@@ -1,29 +1,22 @@
-#ifndef Quaternion_H
-#define Quaternion_H
+#ifndef QUATERNION_H
+#define QUATERNION_H
 
-#include "imagine.h"
+#include "complex.h"
 
-class Quaternion{
+class Quaternion : public Complex
+{
 public:
-    Quaternion():real(0), imagine({0,0,0}){}
+    Quaternion():Complex(0, {0, 0, 0}){}
     Quaternion(std::initializer_list<double> l);
-    Quaternion(const double &a, std::initializer_list<double> l):real(a), imagine(l){}
-    Quaternion(const double &a, Imagine::Imaginary _imagine):real(a), imagine(_imagine){}
+    Quaternion(const double &a, std::initializer_list<double> l):Complex(a, l){}
 
-    Quaternion &cojugate() const;
-    Quaternion &reverse() const;
-    double abs() const;
+    Quaternion &operator+(const Quaternion&quat);
+    Quaternion &operator-(const Quaternion&quat);
+    Quaternion &operator*(const Quaternion&quat);
+    Quaternion &operator/(const Quaternion&quat);
 
-    Quaternion &operator/(const Quaternion &comp) const;
-    Quaternion &operator/(const double &comp) const;
-    Quaternion &operator*(const Quaternion &comp) const;
-    Quaternion &operator*(const double &value) const;
-    Quaternion &operator+(const Quaternion &comp) const;
-    Quaternion &operator-(const Quaternion &comp) const;
-
-//private:
-    double real;
-    Imagine::Imaginary imagine;
+    double getImagine_2() const;
+    double getImagine_3() const;
 };
 
-#endif // Quaternion_H
+#endif // QUATERNION_H
