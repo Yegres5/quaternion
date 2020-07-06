@@ -3,10 +3,11 @@
 #include <boost/math/quaternion.hpp>
 #include <random>
 #include <ctime>
-#include <QDebug>
+#include <iostream>
 #include "quaternion.h"
 
 using boost::math::quaternion;
+using std::cout;
 
 double fRand(double fMin, double fMax)
 {
@@ -38,9 +39,6 @@ int main () {
 
     Quaternion compR;
     quaternion<double> boost;
-
-//    Complex compR;
-//    std::complex<double> boost;
 
     double a1;
     double a2;
@@ -74,9 +72,8 @@ try {
 //        std::complex<double> a(a1,a2);
 //        std::complex<double> b(b1,b2);
 
-
         if (i%50000==0)
-            qDebug() << i;
+            cout << i << std::endl;
 
         compR = comp1+comp2;
         boost = a+b;
@@ -100,13 +97,8 @@ try {
 
     }
 } catch (const std::runtime_error& error) {
-    qDebug() << "Operation : [" << error.what() << "]";
-//    qDebug() << " First vector =  [" << a1 << " " << a2 << " " << " " << a3 << " " << a4 << "]\n" <<
-//                "Second vector = [" << b1 << " " << b2 << " " << " " << b3 << " " << b4 << "]";
-//    qDebug() << " My multiplication =    [" << compR.real << " " << compR.imagine.data.at(0) << " " << compR.imagine.data.at(1)<< " " << compR.imagine.data.at(2) << "]\n" <<
-//                "Boost multiplication = [" << boost.R_component_1() << " " << boost.R_component_2() << " " << boost.R_component_3() << " " << boost.R_component_4() << "]";
+    cout << "Operation : [" << error.what() << "]";
 }
-
     return 0;
 }
 

@@ -3,10 +3,6 @@
 #include <cmath>
 #include <algorithm>
 
-//Complex::Complex(std::initializer_list<double> l):real(*l.begin()), imagine(l){
-//    imagine.erase(0);
-//}
-
 Complex &Complex::cojugate() const
 {
     return *new Complex(real, Imagine::reverse(imagine));
