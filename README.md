@@ -7,6 +7,7 @@ Each class contain real and imaginary part. Both classes __Quaternion__ and __Co
 
 Formulas:
 
+
 ```
 x = [r_1, i_1]
 y = [r_2, i_2]
